@@ -1,0 +1,20 @@
+
+.block {
+  border: 1px solid rgb(72, 78, 162);
+  width: 400px;
+  height: 400px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.alizarin{
+  color: #e74c3c;
+}
+
+.form-control:focus {
+  border-color: #e74c3c;
+}
+
+.table td, th{
+  border: #e74c3c solid 1.75px !important;
+}

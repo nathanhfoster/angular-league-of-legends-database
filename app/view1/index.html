@@ -1,0 +1,499 @@
+<html lang="en" ng-app="nathan-app">
+    
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+      <script src="/bower_components/angular/angular.js"></script>
+      <script src="./nathan.js"></script>
+    
+      <link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css' />
+    
+      <link rel="stylesheet" href="./nathan.css">
+    
+      <title>Document</title>
+    </head>
+    
+    <body>
+
+    
+        
+      
+    <!-- Header -->
+        <div class="container" ng-controller="first" >
+          <div class="row">
+              <!-- Search bar-->
+              <div class="form-group">
+                  <label for="search"></label>
+                  <input type="text" class="form-control" placeholder="Search Champions" id="search" ng-model="query">
+                  <!-- {{champSearch | json}} -->
+                  </div>
+                </div>
+                  <!-- Champion list checkboxes-->
+                <div class="col-xs-2">
+                    <h4 class="alizarin text-center">Roles</h4>
+                    <hr style="height:1.25px;border:none;color:#e74c3c;background-color:#e74c3c;">
+                    <input type="checkbox" ng-click="toggleAll()" ng-model="isAllSelected" ng-checked="true">
+                    <label class="alizarin">Select all</label>
+                    <br>
+                    <form ng-repeat="option in checkBoxRoles" >
+                      
+                      <input type="checkbox" ng-click="checkBoxRole(option.role)" ng-checked="option.selected">
+                      <label class="alizarin">{{option.role}}</label>
+                      <br>
+                    </form>
+                </div>
+            <div class="col-xs-10">
+              <ul class="transparent-header">
+                    
+                      <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Role</th>
+                              <th>Price(RP)</th>
+                              <th>Price(IP)</th>
+                              <th>Win rate</th>
+                              <th>Ban rate</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="champ in champions | filter:searchChampions" ng-show="champ.active">
+                              <th scope="row" ><p class="text-center">{{champ.name}}</p>
+                                <a href="{{champ.videoURL}}" target="_blank">
+                                  <img ng-src="{{champ.pictureURL}}" class="responsive img-thumbnail center-block">
+                                  <!-- <iframe width="560" height="315" ng-src="{{champ.videoURL}}" frameborder="0" allowfullscreen></iframe> -->
+                                  </a>
+                                
+                                
+                              </th>
+                              <td>{{champ.role}}</td>
+                              <td>{{champ.rpPrice}}</td>
+                              <td>{{champ.ipPrice}}</td>
+                              <td><meter class="meter" min="0" low="25" optimum="90" high="50" max="100" value="{{champ.winRate}}" title="{{champ.winRate}}%"></meter></td>
+                              <td><meter class="meter" min="0" low="25" optimum="90" high="50" max="100" value="{{champ.banRate}}" title="{{champ.banRate}}%"></meter></td>
+                              <!-- <td><iframe width="560" height="315" src="{{champ.videoURL}}" frameborder="0" allowfullscreen></iframe></td> -->
+                            </tr>
+                          </tbody>
+                        </table>
+    
+                    
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <!-- Item list-->
+      <div class="champions-field" id="items">
+        <h2 class="header">Items</h2>
+    
+        <div class="item-container" id="items-filter">
+          <div style="height: 228px;">
+            <h3>Defense</h3>
+    
+            <div>
+              <div>
+                <input type="checkbox" name="c1" onclick="showMe('health', this)" checked>
+                <label>Health</label>
+                <div>
+                  <input type="checkbox" name="c2" onclick="showMe('magic resist', this)" checked>
+                  <label>Magic Resist</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('health regen', this)" checked>
+                  <label>Health Regen</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('assassin', this)" checked>
+                  <label>Armor</label>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="height: 228px;">
+            <div>
+              <h3>Attack</h3>
+              <div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('damage', this)" checked>
+                  <label>Damage</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('critical strike', this)" checked>
+                  <label>Critical Strike</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('attack speed', this)" checked>
+                  <label>Attack Speed</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('life steal', this)" checked>
+                  <label>Life Steal</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="height: 228px;">
+            <div>
+              <h3>Magic</h3>
+              <div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('ability power', this)" checked>
+                  <label>Ability Power</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('cooldown reduction', this)" checked>
+                  <label>Cooldown Reduction</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('mana', this)" checked>
+                  <label>Mana</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="c1" onclick="showMe('mana regen', this)" checked>
+                  <label>Mana Regen</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Item List -->
+        <div class="item-container" id="items-filter">
+          <ul class="transparent-header">
+            <table id="tblData" class="target">
+              <tbody>
+                <!-- Abyssal Scepter -->
+                <tr style="display: table-row;" id="ability power">
+                  <td class="items" id="abyssal-scepter">
+                    <h2>Abyssal Scepter</h2>
+                    <div class="img" style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/item0.png') -288px -288px no-repeat;"></div>
+                  </td>
+                  <td>+60 Ability Power
+                    <br>+60 Magic Resist
+                    <br>+10% Cooldown Reduction</td>
+                </tr>
+                <!-- Aegis of the Legion -->
+                <tr style="display: table-row;" id="health regen">
+                  <td class="items" id="aegis-of-the-legion">
+                    <h2>Aegis of the Legion</h2>
+                    <div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/item1.png') -96px -144px no-repeat;"></div>
+                  </td>
+                  <td>+300 Health
+                    <br>+100% Base Health Regen
+                    <br>+20 Magic Resist</td>
+                </tr>
+                <!-- Banshee's Veil -->
+                <tr style="display: table-row;" id="magic resist">
+                  <td class="items" id="banshee's-veil">
+                    <h2>Banshee's Veil</h2>
+                    <div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/item1.png') -0px -144px no-repeat;"></div>
+                  </td>
+                  <td>+200 Health
+                    <br>+70 Magic Resist
+                    <br>+100% Base Health Regen</td>
+                </tr>
+                <!-- Infinity Edge -->
+                <tr style="display: table-row;" id="damage">
+                  <td class="items" id="infinity-edge">
+                    <h2>Infinity Edge</h2>
+                    <div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/item0.png') -144px -384px no-repeat;"></div>
+                  </td>
+                  <td>+70 Attack Damage
+                    <br>+20% Critical Strike
+                    <br>UNIQUE PASSIVE: Critical strike bonus damage is increased by 50%.</td>
+                </tr>
+                <!-- Thornmail -->
+                <tr style="display: table-row;" id="armor">
+                  <td class="items" id="thornmail">
+                    <h2>Thornmail</h2>
+                    <div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/item1.png') -48px -48px no-repeat;"></div>
+                  </td>
+                  <td>+100 Armor
+                    <br>UNIQUE PASSIVE: Upon being hit by a basic attack, reflects magic damage back to the attacker equal to 25% of your bonus Armor plus 15% of the incoming damage.</td>
+                </tr>
+                <!-- Warmonger's Armor -->
+                <tr style="display: table-row;" id="cooldown reduction">
+                  <td class="items" id="warmonger's-armor">
+                    <h2>Warmonger's Armor</h2>
+                    <div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/item1.png') -240px -48px no-repeat;"></div>
+                  </td>
+                  <td>+800 Health
+                    <br>+200% Base Health Regen
+                    <br>+10% Cooldown Reduction
+                    <br> UNIQUE PASSIVE: Grant Warmog's Heart if you have at least 3000 maximum Health.
+                    <br>Warmog's Heart: Restore 15% of maximum Health every 5 seconds if damage hasn't been taken within 8 seconds.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class=name, colspan="2">
+                    <div class="dropdown">
+                      <a href="#home" id="navigation"><h2>Home</h2></a></div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </ul>
+        </div>
+      </div>
+      <!-- Summoner Spell List -->
+      <header id="summoner-list">
+        <h2>Summoner Spell List</h2>
+      </header>
+      <div>
+        <div>
+          <div class=" rg-box-container rg-display-Riot.spells.ListView" data-control="cont3">
+            <table class="spells table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 215px">Name</th>
+                  <th style="width: 100px;">Type</th>
+                  <th style="width: 150px;">Summoner Level</th>
+                  <th style="width: 200px;">Maps</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--Ghost-->
+                <tr id="ghost">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -288px -0px no-repeat;"></div></span>
+                    <div>
+                      <h2>Ghost</h2></div>
+                  </td>
+                  <td>Offensive</td>
+                  <td>Level 1</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar
+                    <br>Howling Abyss</td>
+                  <td>Your champion can move through units and has 28-45% (depending on champion level) increased Movement Speed for 10 seconds.</td>
+                </tr>
+                <!--Heal-->
+                <tr id="heal">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -336px -0px no-repeat;"></div></span>
+                    <div>
+                      <h2>Heal</h2></div>
+                  </td>
+                  <td>Defensive</td>
+                  <td>Level 1</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar
+                    <br>Howling Abyss</td>
+                  <td>Restores 90-345 Health (depending on champion level) and grants 30% Movement Speed for 1 second to you and target allied champion. This healing is halved for units recently affected by Summoner Heal.</td>
+                </tr>
+                <!--Clarity-->
+                <tr id="clarity">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -384px -0px no-repeat;"></div></span>
+                    <div>
+                      <h2>Clarity</h2></div>
+                  </td>
+                  <td>Utility</td>
+                  <td>Level 1</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar
+                    <br>Howling Abyss</td>
+                  <td>Restores 50% of your champion's maximum Mana. Also restores allies for 25% of their maximum Mana.</td>
+                </tr>
+                <!--Cleanse-->
+                <tr id="cleanse">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -48px -0px no-repeat;"></div></span>
+                    <div>
+                      <h2>Cleanse</h2></div>
+                  </td>
+                  <td>Defensive</td>
+                  <td>Level 2</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar
+                    <br>Howling Abyss</td>
+                  <td>Removes all disables and summoner spell debuffs affecting your champion and lowers the duration of incoming disables by 65% for 3 seconds.</td>
+                </tr>
+                <!--Teleport-->
+                <tr id="teleport">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -144px -48px no-repeat;"></div></span>
+                    <div>
+                      <h2>Teleport</h2></div>
+                  </td>
+                  <td>Utility</td>
+                  <td>Level 2</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline</td>
+                  <td>After channeling for 3.5 seconds, teleports your champion to target allied structure, minion, or ward.</td>
+                </tr>
+                <!--Smite-->
+                <tr id="smite">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -48px -48px no-repeat;"></div></span>
+                    <div>
+                      <h2>Smite</h2></div>
+                  </td>
+                  <td>Defensive</td>
+                  <td>Level 3</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar</td>
+                  <td>Deals 390-1000 true damage (depending on champion level) to target epic or large monster or enemy minion.</td>
+                </tr>
+                <!--Barrier-->
+                <tr id="barrier">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -0px -0px no-repeat;"></div></span>
+                    <div>
+                      <h2>Barrier</h2></div>
+                  </td>
+                  <td>Defensive</td>
+                  <td>Level 6</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar
+                    <br>Howling Abyss</td>
+                  <td>Shields your champion for 115-455 (depending on champion level) for 2 seconds.</td>
+                </tr>
+                <!--Ignite-->
+                <tr id="ignite">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -144px -0px no-repeat;"></div></span>
+                    <div>
+                      <h2>Ignite</h2></div>
+                  </td>
+                  <td>Offensive</td>
+                  <td>Level 8</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar
+                    <br>Howling Abyss</td>
+                  <td>Ignites target enemy champion, dealing 70-410 true damage (depending on champion level) over 5 seconds, grants you vision of the target, and reduces healing effects on them for the duration.</td>
+                </tr>
+                <!--Exhaust-->
+                <tr id="exhaust">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -192px -0px no-repeat;"></div></span>
+                    <div>
+                      <h2>Exhaust</h2></div>
+                  </td>
+                  <td>Offensive</td>
+                  <td>Level 8</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar
+                    <br>Howling Abyss</td>
+                  <td>Exhausts target enemy champion, reducing their Movement Speed and Attack Speed by 30%, their Armor and Magic Resist by 10, and their damage dealt by 40% for 2.5 seconds.</td>
+                </tr>
+                <!--Flash-->
+                <tr id="flash">
+                  <td><span class="simple-border"><div class="img " style="height:48px; width:48px; background: url('//ddragon.leagueoflegends.com/cdn/6.12.1/img/sprite/spell0.png') -240px -0px no-repeat;"></div></span>
+                    <div>
+                      <h2>Flash</h2></div>
+                  </td>
+                  <td>Utility</td>
+                  <td>Level 12</td>
+                  <td>Summoner's Rift
+                    <br>Twisted Treeline
+                    <br>Crystal Scar
+                    <br>Howling Abyss</td>
+                  <td>Teleports your champion a short distance toward your cursor's location.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class=name, colspan="5">
+                    <div class="dropdown">
+                      <a href="#home" id="navigation"><h2>Home</h2></a></div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    
+      <div class="container" ng-controller="first">
+          <div class="alert alert-info">
+     <p>Sort Type: {{ sortType }}</p>
+     <p>Sort Reverse: {{ sortReverse }}</p>
+     <p>Search Query: {{ searchChampion }}</p>
+   </div>
+   
+   <form>
+     <div class="form-group">
+       <div class="input-group">
+         <div class="input-group-addon"><i class="fa fa-search"></i></div>
+         <input type="text" class="form-control" placeholder="Search Champions" ng-model="searchChampion">
+       </div>      
+     </div>
+   </form>
+   
+   <table class="table table-bordered table-striped">
+     
+     <thead>
+       <tr>
+         <td>
+           <a  ng-click="sortType = 'name'; sortReverse = !sortReverse">
+             Name
+             <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+             <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+           </a>
+         </td>
+         <td>
+           <a  ng-click="sortType = 'role'; sortReverse = !sortReverse">
+           Role
+             <span ng-show="sortType == 'role' && !sortReverse" class="fa fa-caret-down"></span>
+             <span ng-show="sortType == 'role' && sortReverse" class="fa fa-caret-up"></span>
+           </a>
+         </td>
+         <td>
+           <a  ng-click="sortType = 'ipPrice'; sortReverse = !sortReverse">
+           Price(IP) 
+             <span ng-show="sortType == 'ipPrice' && !sortReverse" class="fa fa-caret-down"></span>
+             <span ng-show="sortType == 'ipPrice' && sortReverse" class="fa fa-caret-up"></span>
+           </a>
+         </td>
+         <td>
+             <a  ng-click="sortType = 'rpPrice'; sortReverse = !sortReverse">
+             Price(RP)
+               <span ng-show="sortType == 'rpPrice' && !sortReverse" class="fa fa-caret-down"></span>
+               <span ng-show="sortType == 'rpPrice' && sortReverse" class="fa fa-caret-up"></span>
+             </a>
+           </td>
+           <td>
+               <a  ng-click="sortType = 'winRate'; sortReverse = !sortReverse">
+               Win Rate
+                 <span ng-show="sortType == 'winRate' && !sortReverse" class="fa fa-caret-down"></span>
+                 <span ng-show="sortType == 'winRate' && sortReverse" class="fa fa-caret-up"></span>
+               </a>
+             </td>
+             <td>
+                 <a  ng-click="sortType = 'banRate'; sortReverse = !sortReverse">
+                 Ban Rate
+                   <span ng-show="sortType == 'banRate' && !sortReverse" class="fa fa-caret-down"></span>
+                   <span ng-show="sortType == 'banRate' && sortReverse" class="fa fa-caret-up"></span>
+                 </a>
+               </td>
+       </tr>
+     </thead>
+     
+     <tbody>
+       <tr ng-repeat="champ in champions | orderBy:sortType:sortReverse | filter:searchChampion">
+               <th scope="row" ><p class="text-center">{{champ.name}}</p>
+                 <a href="{{champ.videoURL}}" target="_blank">
+                   <img ng-src="{{champ.pictureURL}}" class="responsive img-thumbnail center-block">
+                   <!-- <iframe width="560" height="315" ng-src="{{champ.videoURL}}" frameborder="0" allowfullscreen></iframe> -->
+                   </a>
+                 
+                 
+               </th>
+               <td>{{champ.role}}</td>
+               <td>{{champ.rpPrice}}</td>
+               <td>{{champ.ipPrice}}</td>
+               <td><meter class="meter" min="0" low="25" optimum="90" high="50" max="100" value="{{champ.winRate}}" title="{{champ.winRate}}%"></meter></td>
+               <td><meter class="meter" min="0" low="25" optimum="90" high="50" max="100" value="{{champ.banRate}}" title="{{champ.banRate}}%"></meter></td>
+               <!-- <td><iframe width="560" height="315" src="{{champ.videoURL}}" frameborder="0" allowfullscreen></iframe></td> -->
+             </tr>
+       </tr>
+     </tbody>
+
+    </body>
+    
+    </html>
